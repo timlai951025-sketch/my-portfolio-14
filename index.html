@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技應用與創意實作 | 學期期中報告</title>
+    <style>
+        /* ================= 全局與變數設定 ================= */
+        :root {
+            --primary: #00e5ff;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body, h1, h2, h3, p, ul, li { margin: 0; padding: 0; list-style: none; }
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* ================= 頂部導覽列 ================= */
+        header {
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 15px 0;
+            text-align: center;
+        }
+        h1 { font-size: 2rem; letter-spacing: 2px; color: var(--primary); text-shadow: 0 0 10px rgba(0,229,255,0.3); }
+        .subtitle { color: var(--text-muted); font-size: 0.9rem; margin-top: 5px; }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+        .nav-btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--text-muted);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .nav-btn.active, .nav-btn:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0,229,255,0.4);
+        }
+
+        /* ================= 內容區塊佈局 ================= */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .section { display: none; animation: fadeIn 0.5s ease-in-out; }
+        .section.active { display: block; }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .card h2 { color: var(--primary); margin-bottom: 20px; border-bottom: 2px solid rgba(0,229,255,0.2); padding-bottom: 10px; }
+
+        /* ================= 網格系統 (圖片與影片) ================= */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        
+        .media-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; text-align: center;}
+        .media-box h3 { font-size: 1.1rem; margin-bottom: 15px; color: #cbd5e1; }
+        .media-box img, .media-box video { width: 100%; border-radius: 8px; object-fit: contain; max-height: 400px; }
+
+        /* ================= AI 對話框設計 ================= */
+        .chat-container { background: #0b1120; border-radius: 8px; padding: 20px; height: 100%; }
+        .chat-msg { margin-bottom: 15px; display: flex; flex-direction: column; }
+        .chat-msg span { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px; }
+        .chat-bubble {
+            background: #1e3a8a;
+            padding: 12px 18px;
+            border-radius: 15px 15px 15px 0;
+            display: inline-block;
+            max-width: 90%;
+            border-left: 3px solid var(--primary);
+        }
+        .ai-note { background: #064e3b; border-left-color: #10b981; border-radius: 15px 15px 0 15px; align-self: flex-end;}
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>科技應用與創意實作</h1>
+        <p class="subtitle">NCUE ME 期中成果作品集 | 結合程式、AI設計與手作工藝</p>
+        <nav>
+            <button class="nav-btn active" onclick="showSection('braingo')">1. Brain Go 程式實作</button>
+            <button class="nav-btn" onclick="showSection('badge')">2. AI 胸章設計與製作</button>
+            <button class="nav-btn" onclick="showSection('coaster')">3. AI 杯墊與拼裝實作</button>
+            <button class="nav-btn" onclick="showSection('reflection')">4. 課堂心得</button>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <div id="braingo" class="section active">
+            <div class="card">
+                <h2>💻 Brain Go 程式碼展示</h2>
+                <p style="margin-bottom: 20px; color: var(--text-muted);">使用積木程式進行邏輯編排，完成感測器與蜂鳴器的控制。</p>
+                <div class="grid-3">
+                    <div class="media-box">
+                        <h3>蜂鳴器程式碼 (1)</h3>
+                        <img src="蜂鳴器程式碼.jpg" alt="程式碼1">
+                    </div>
+                    <div class="media-box">
+                        <h3>蜂鳴器程式碼 (2)</h3>
+                        <img src="蜂鳴器程式碼 (2).jpg" alt="程式碼2">
+                    </div>
+                    <div class="media-box">
+                        <h3>蜂鳴器程式碼 (3)</h3>
+                        <img src="蜂鳴器程式碼 (3).jpg" alt="程式碼3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🎥 實作影片紀錄</h2>
+                <div class="grid-2">
+                    <div class="media-box">
+                        <h3>蜂鳴器演奏小蜜蜂</h3>
+                        <video controls><source src="蜂鳴器演奏小蜜蜂.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="media-box">
+                        <h3>超音波感測距離</h3>
+                        <video controls><source src="超音波感測距離.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="media-box">
+                        <h3>音符左右來回跑動</h3>
+                        <video controls><source src="音符左右來回跑動.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="media-box">
+                        <h3>跑操場 (LCD顯示)</h3>
+                        <video controls><source src="跑操場.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="media-box">
+                        <h3>紅外線感測達成次數</h3>
+                        <video controls><source src="紅外線感測達成次數.mp4" type="video/mp4"></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="badge" class="section">
+            <div class="card">
+                <h2>🎨 彩色胸章 AI 設計與實作</h2>
+                <div class="grid-2">
+                    <div class="chat-container">
+                        <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;">AI 詠唱與討論過程 (共6次)</h3>
+                        
+                        <div class="chat-msg"><span>Iteration 1</span><div class="chat-bubble">幫我設計一個彩色繪圖創作元素須包括科技、創意、實作(不要文字)跟機電系相關比例要圓形的</div></div>
+                        <div class="chat-msg"><span>Iteration 2</span><div class="chat-bubble">可以簡約一點色彩不用那麼豐富</div></div>
+                        <div class="chat-msg"><span>Iteration 3</span><div class="chat-bubble">可以以第一張為雛形想要有一點手繪風格</div></div>
+                        <div class="chat-msg"><span>Iteration 4</span><div class="chat-bubble">這張就很棒了 但我想要稍稍簡化一點色彩也可以再少一點</div></div>
+                        <div class="chat-msg"><span>Iteration 5</span><div class="chat-bubble">飽和度可以一樣我的意思是用的顏色可以稍微同色系或看起來舒服的</div></div>
+                        <div class="chat-msg"><span>Iteration 6</span><div class="chat-bubble">很好接下來幫我在適當位置也加入符合色系的文字「NCUE ME」</div></div>
+                        <div class="chat-msg" style="align-items: flex-end;"><span>AI 輸出結果</span><div class="chat-bubble ai-note">生成最終彩色手繪科技風圖樣！</div></div>
+                    </div>
+
+                    <div>
+                        <div class="media-box" style="margin-bottom: 20px;">
+                            <h3>AI 最終定稿圖案</h3>
+                            <img src="胸章成品圖.jpg" alt="胸章成品圖">
+                        </div>
+                        <div class="media-box">
+                            <h3>胸章實體成果與合照</h3>
+                            <img src="胸章成果.jpg" alt="胸章合照">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="coaster" class="section">
+            <div class="card">
+                <h2>🧩 木頭拼接杯墊實作</h2>
+                <div class="media-box" style="max-width: 600px; margin: 0 auto;">
+                    <h3>木頭拼接杯墊成果</h3>
+                    <img src="木頭拼接杯墊成果.jpg" alt="拼接杯墊">
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚙️ 雷雕杯墊 AI 設計與實作</h2>
+                <div class="grid-2">
+                    <div class="chat-container">
+                        <h3 style="color: var(--primary); margin-bottom: 20px; text-align: center;">AI 詠唱與討論過程 (共6次)</h3>
+                        
+                        <div class="chat-msg"><span>Iteration 1</span><div class="chat-bubble">幫我設計一個只有黑白線條的繪圖創作元素一樣須包括科技、創意、實作(不要文字)跟機電系相關比例要圓形的</div></div>
+                        <div class="chat-msg"><span>Iteration 2</span><div class="chat-bubble">我要刻在木頭上的盡可能簡化</div></div>
+                        <div class="chat-msg"><span>Iteration 3</span><div class="chat-bubble">機器手臂拿掉 拿板手的手也刪掉(留板手就好)</div></div>
+                        <div class="chat-msg"><span>Iteration 4</span><div class="chat-bubble">右邊的腦袋+齒輪刪掉其他元素保留並讓它們有結合在一起的感覺均勻分布在圖中</div></div>
+                        <div class="chat-msg"><span>Iteration 5</span><div class="chat-bubble">最右邊安插個閃電吧</div></div>
+                        <div class="chat-msg"><span>Iteration 6</span><div class="chat-bubble">把齒輪置中,燈泡放在齒輪中間,板手讓他有鎖齒輪的感覺,閃電放在齒輪的左下或右下角(要與齒輪交疊),電路可畫幾條在周圍(少)</div></div>
+                        <div class="chat-msg" style="align-items: flex-end;"><span>AI 輸出結果</span><div class="chat-bubble ai-note">生成最終雷雕專用黑白線條圖！</div></div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="media-box">
+                            <h3>AI 雷雕定稿圖</h3>
+                            <img src="杯墊雷射雕刻機圖片.JPG" alt="雷雕圖">
+                        </div>
+                        <div class="media-box">
+                            <h3>雷雕機電腦操作</h3>
+                            <img src="雷射雕刻機電腦操作過程.jpg" alt="電腦操作">
+                        </div>
+                        <div class="media-box">
+                            <h3>打磨樟木過程</h3>
+                            <img src="打磨樟木杯墊過程 (2).jpg" alt="打磨過程">
+                        </div>
+                        <div class="media-box">
+                            <h3>樟木杯墊上膠</h3>
+                            <img src="樟木杯墊上膠過程.jpg" alt="上膠過程">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🎥 雷射雕刻紀錄與最終成果</h2>
+                <div class="grid-2">
+                    <div class="media-box">
+                        <h3>雷射雕刻機運作過程</h3>
+                        <video controls><source src="雷射雕刻機雕刻過程.mp4" type="video/mp4"></video>
+                    </div>
+                    <div class="media-box">
+                        <h3>雷雕杯墊最終成果</h3>
+                        <img src="杯墊成果.jpg" alt="杯墊成果">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="reflection" class="section">
+            <div class="card">
+                <h2 style="text-align: center;">📝 課堂學習心得</h2>
+                <div style="background: rgba(0,0,0,0.3); padding: 30px; border-radius: 8px; margin-top: 20px; line-height: 2;">
+                    <p>
+                        在這次「科技應用與創意實作」的課程中，我們不僅學習了基礎的硬體控制，更體會到了將抽象概念具現化的完整流程。
+                    </p>
+                    <br>
+                    <p>
+                        <strong>1. 程式邏輯與硬體互動：</strong><br>
+                        透過 Brain Go 控制板與積木程式的撰寫，我們成功讓感測器與蜂鳴器等元件產生互動。從超音波測距到紅外線感測，這些實作讓我們更清楚地理解機電整合的基礎原理，以及除錯過程中的邏輯思考。
+                    </p>
+                    <br>
+                    <p>
+                        <strong>2. AI 協作與設計力：</strong><br>
+                        在製作胸章與雷雕杯墊時，我們利用了 AI 繪圖工具輔助設計。在這個過程中，我們學會了如何精準地下達指令（Prompt），經過至少 6 次不斷地來回溝通與微調，才將腦海中結合了「科技、創意、實作與 NCUE ME」的元素，轉化為可用於印刷與雷射雕刻的完美圖檔。這讓我深刻體會到 AI 作為工具的強大，以及人類在背後引導美感與實用性的重要。
+                    </p>
+                    <br>
+                    <p>
+                        <strong>3. 手作工藝的溫度：</strong><br>
+                        最後的打磨、上膠與木頭拼接，則讓我們回歸到最純粹的手工藝。從電腦螢幕上的虛擬圖檔，變成雷射雕刻機下飄著焦木香的實體杯墊，這種從無到有的成就感是無可取代的。這次的期中報告不僅是一次作業，更是我們將科技與手作完美結合的最佳證明。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // 隱藏所有內容區塊
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            
+            // 移除所有按鈕的 active 狀態
+            const btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+
+            // 顯示目標區塊並亮起目標按鈕
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+
+            // 回到頂部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
